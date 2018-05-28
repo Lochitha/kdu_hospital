@@ -1,4 +1,5 @@
 
+
 <!doctype html>
 <html lang="en">
 
@@ -85,15 +86,28 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="purple">
-                                    <h4 class="title"> <center>Welcome to the KDU registration desk! <br> What do you want to do?</h4>
+                                    <h4 class="title"> <center> Please enter the patient ID below</h4>
 
                                 </div>
                                 <br><br><br>
                                 <div class="card-content table-responsive">
                                     <table class="table">
-                                       <center> <a href="http://localhost/kdu_hospital/examples/patient_detail_form.php" class="button">Insert new patient record</a><br><br>
-                                       <center> <a href="http://localhost/kdu_hospital/examples/reception_welcome2.php" class="button">Update a patient record</a><br><br>
-                                       
+                                       <div class="card-content" >
+                                    <form action="consultant_view.php" method="POST">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Patient ID</label>
+                                                    <br>
+                                                    <input type="text" class="form-control" name="patient_id">
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" name="view" class="btn btn-primary pull-right">View patient data</button>
+                                        <div class="clearfix"></div>
+                                    </form>
+                                </div>    
                                     </table>
                                 </div>
                                 <br><br><br>

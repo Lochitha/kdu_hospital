@@ -141,7 +141,7 @@ input[type=text]:focus, input[type=password]:focus {
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="psw" required>
 
-      <button type="submit" class="btn">Login</button>
+      <button type="submit" class="btn" >Login</button>
     </div>
   </form>
 
