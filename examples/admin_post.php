@@ -4,20 +4,20 @@ include("../config/db_connect.php");
 
 if(isset($_POST['confirm'])){
 
-	$user_id=$_POST['user_id'];
+	$consultant_id=$_POST['consultant_id'];
 		
 	/*if($_POST['actor']=="ss")
 		$sql1="delete from student where sid=".$_POST['sid']."";
 	elseif($_POST['actor']=="tt")
 		$sql1="delete from teacher where tid=".$_POST['tid'];
 		*/
-	$sql="UPDATE users
+	$sql="UPDATE consultant_detail
 SET active = 1
-WHERE user_id ='$user_id' ";
+WHERE consultant_id ='$consultant_id' ";
 
 if ($conn->query($sql) === TRUE) {
    
-    header('location:../examples/user.php');
+    header('location:../examples/admin.php');
     $conn->close();
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -36,19 +36,19 @@ if ($conn->query($sql) === TRUE) {
 
 if(isset($_POST['deny'])){
 
-	$user_id=$_POST['user_id'];
+	$consultant_id=$_POST['consultant_id'];
 		
 	/*if($_POST['actor']=="ss")
 		$sql1="delete from student where sid=".$_POST['sid']."";
 	elseif($_POST['actor']=="tt")
 		$sql1="delete from teacher where tid=".$_POST['tid'];
 		*/
-	$sql="DELETE FROM users
-	WHERE user_id ='$user_id' ";
+	$sql="DELETE FROM consultant_detail
+	WHERE consultant_id ='$consultant_id' ";
 
 if ($conn->query($sql) === TRUE) {
    
-    header('location:../examples/user.php');
+    header('location:../examples/admin.php');
     $conn->close();
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -66,19 +66,19 @@ if ($conn->query($sql) === TRUE) {
 
 if(isset($_POST['remove'])){
 
-	$user_id=$_POST['user_id'];
+	$consultant_id=$_POST['consultant_id'];
 		
 	/*if($_POST['actor']=="ss")
 		$sql1="delete from student where sid=".$_POST['sid']."";
 	elseif($_POST['actor']=="tt")
 		$sql1="delete from teacher where tid=".$_POST['tid'];
 		*/
-	$sql="DELETE FROM users
-	WHERE user_id ='$user_id' ";
+	$sql="DELETE FROM consultant_detail
+	WHERE consultant_id ='$consultant_id' ";
 
 if ($conn->query($sql) === TRUE) {
    
-    header('location:../examples/user.php');
+    header('location:../examples/admin.php');
     $conn->close();
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;

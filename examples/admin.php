@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
     <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Brainstorm</title>
+    <title>Hospital Management System of KDU </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <!-- Bootstrap core CSS     -->
@@ -35,80 +35,11 @@ include("../config/db_connect.php");
     -->
             <div class="logo">
                 <a href="http://35.185.174.224/fmri_final/index.php" class="simple-text">
-                    Brainstorm
+                    KDU
                 </a>
             </div>
             <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li>
-                        <a href="dashboard.php">
-                            <i class="material-icons">dashboard</i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="./table.php">
-                            <i class="material-icons">person</i>
-                            <p>Registered User Data</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./log.php">
-                            <i class="material-icons">content_paste</i>
-                            <p>Registered User Login </p>
-                        </a>
-                    </li>
-                    <li >
-                        <a href="./table.php">
-                            <i class="material-icons">content_paste</i>
-                            <p>3D Brain Model Data</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./function.php">
-                            <i class="material-icons">content_paste</i>
-                            <p>Brain Functions</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./brodmann areas.php">
-                            <i class="material-icons">content_paste</i>
-                            <p>Brodmann Areas</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./article.php">
-                            <i class="material-icons">content_paste</i>
-                            <p>Research Article Data</p>
-                        </a>
-                    </li>
-                     <li>
-                        <a href="./suggestions.php">
-                            <i class="material-icons">content_paste</i>
-                            <p>Suggestions</p>
-                        </a>
-                    </li>
-                    
-                   <li>
-                        <a href="./posts.php">
-                            <i class="material-icons">content_paste</i>
-                            <p>Posts</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./comments.php">
-                            <i class="material-icons">content_paste</i>
-                            <p>Comments</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./client_data_entry.php">
-                            <i class="material-icons">content_paste</i>
-                            <p>Client Data Entry</p>
-                        </a>
-                    </li>
-                    
-                </ul>
+                
             </div>
         </div>
         <div class="main-panel">
@@ -135,22 +66,21 @@ include("../config/db_connect.php");
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header" data-background-color="blue">
+                                <div class="card-header" data-background-color="purple">
                                     <h4 class="title">Signup approval</h4>
                                     
                                 </div>
                                 <div class="card-content table-responsive">
                                     <table class="table">
                                         <thead class="text-primary">
-                                            <th>User ID</th>
-                                            <th>First Name</th>
-                                            <th>User Name</th>
+                                            <th>Consultant ID</th>
+                                            <th>Consultant Name</th>
                                             <th>Email</th>
                                             <th>Approval</th>
                                         </thead>
                                         <tbody>
                                             <?php 
-                                            $sql="SELECT * FROM users";
+                                            $sql="SELECT * FROM consultant_detail";
                                             $result=$conn->query($sql);
 
 
@@ -158,15 +88,15 @@ include("../config/db_connect.php");
                                                 
                                                 while ($row=$result->fetch_assoc()) {
                                                     if ($row["active"]==1){
-                                                    echo "<form method='POST' action='../PHP/approve.php'>";
+                                                    echo "<form method='POST' action='admin_post.php'>";
                                                     echo "<tr>";
                                                         ?>
-                                                <input type="text" name="user_id" value='<?php echo $row["user_id"]?>' class="hidden">
+                                                <input type="text" name="consultant_id" value='<?php echo $row["consultant_id"]?>' class="hidden">
                                                 
-                                                <td><?php echo $row["user_id"];?></td>
-                                                <td><?php echo $row["fname"];?></td>
-                                                <td><?php echo $row["username"];?></td>
-                                                <td class="text-primary"><?php echo $row["email"];?></td>
+                                                <td><?php echo $row["consultant_id"];?></td>
+                                                <td><?php echo $row["name"];?></td>
+                                                <td><?php echo $row["mail"];?></td>
+                                                
                                                 <td><input type="submit" class="btn btn-info" value="View">
                                                 <input type="submit" name="remove" class="btn btn-danger" value='Remove'>
                                                 
@@ -182,23 +112,31 @@ include("../config/db_connect.php");
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
                         <div class="col-md-12">
-                            <div class="card card-plain">
-                                <div class="card-header" data-background-color="blue">
+                            <div class="card">
+                                <div class="card-header" data-background-color="purple">
                                     <h4 class="title">Requested Users</h4>
-                               </div>
+                                    
+                                </div>
                                 <div class="card-content table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <th>User ID</th>
-                                            <th>First Name</th>
-                                            <th>User Name</th>
+                                    <table class="table">
+                                        <thead class="text-primary">
+                                            <th>Consultant ID</th>
+                                            <th>Consultant Name</th>
+                                            <th>Area of specialization</th>
+                                            <th>Contact number</th>
                                             <th>Email</th>
+                                            <th>Document of proof</th>
                                             <th>Approval</th>
                                         </thead>
                                         <tbody>
                                             <?php 
-                                            $sql="SELECT * FROM users";
+                                            $sql="SELECT * FROM consultant_detail";
                                             $result=$conn->query($sql);
 
 
@@ -207,14 +145,17 @@ include("../config/db_connect.php");
                                                 while ($row=$result->fetch_assoc()) { 
                                                     if ($row["active"]==0){
 
-                                                        echo "<form method='POST' action='../PHP/approve.php'>";
+                                                        echo "<form method='POST' action='admin_post.php'>";
                                                         echo "<tr>";
                                                         ?>
-                                                <input type="text" name="user_id" value='<?php echo $row["user_id"]?>' class="hidden">
-                                                <td><?php echo $row["user_id"];?></td>
-                                                <td><?php echo $row["fname"];?></td>
-                                                <td><?php echo $row["username"];?></td>
-                                                <td class="text-primary"><?php echo $row["email"];?></td>
+                                                <input type="text" name="consultant_id" value='<?php echo $row["consultant_id"]?>' class="hidden">
+                                                <td><?php echo $row["consultant_id"];?></td>
+                                                <td><?php echo $row["name"];?></td>
+                                                <td><?php echo $row["area"];?></td>
+                                                <td><?php echo $row["contact_no"];?></td>
+                                                <td><?php echo $row["mail"];?></td>
+                                                <td><?php echo $row["document"];?></td>
+                                                
                                                 <td>
                                                 <input type='submit' name='confirm' class='btn btn-success' name='confirm' value='Confirm'>
                                                 <input type='submit' name='deny' class='btn btn-danger' value='Deny'>
@@ -233,12 +174,8 @@ include("../config/db_connect.php");
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
+                        
+                    
 </body>
 <!--   Core JS Files   -->
 <script src="../assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>

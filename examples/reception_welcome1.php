@@ -93,6 +93,7 @@
                                     <table class="table">
                                        <center> <a href="http://35.185.174.224/fmri_final/admin/examples/client_welcome2.php" class="button">Insert new patient record</a><br><br>
                                        <center> <a href="http://35.185.174.224/fmri_final/admin/examples/client_welcome5.php" class="button">Update a patient record</a><br><br>
+                                        <center> <a href="http://35.185.174.224/fmri_final/admin/examples/client_welcome5.php" class="button">Delete request for a patient record</a><br><br>
                                        
                                     </table>
                                 </div>
