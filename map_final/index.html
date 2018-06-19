@@ -1,0 +1,182 @@
+<!DOCTYPE html >
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>Using MySQL and PHP with Google Maps</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>   
+    <div style="padding: 15px 15px;background-color: lightblue; ">
+      <input type="text" name="name" id="search" placeholder="Search" style="
+        padding: 8px 10px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;"
+      >
+    </div>
+    <div id="map" style="padding-bottom: 0px;"></div>
+
+    <script type="text/javascript">
+// ////////////////////////////////////
+  var person = "";
+  var h= document.querySelector("#search");
+  h.addEventListener("change",function(){
+    person = search.value.toUpperCase();
+    initMap();
+    
+  });
+
+////////////////////////////////////
+     
+      var customLabel = {
+        critical: {
+          label: 'C'
+        },
+        normal: {
+          label: 'N'
+        }
+      };
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: new google.maps.LatLng(6.8868, 79.9187),
+          zoom: 12
+        });
+
+
+        var infoWindow = new google.maps.InfoWindow;
+
+          
+          // Change this depending on the name of your PHP or XML file
+          downloadUrl('http://localhost/map_final/a.php', function(data) {
+            var xml = data.responseXML;
+            var markers = xml.documentElement.getElementsByTagName('marker');
+
+
+            Array.prototype.forEach.call(markers, function(markerElem) {
+              var id = markerElem.getAttribute('id');
+              var name = markerElem.getAttribute('name').toUpperCase();
+
+              var address = markerElem.getAttribute('address');
+              var disease = markerElem.getAttribute('disease').toUpperCase();
+              var type = markerElem.getAttribute('type');
+              var point = new google.maps.LatLng(
+                  parseFloat(markerElem.getAttribute('lat')),
+                  parseFloat(markerElem.getAttribute('lng')));
+
+              var infowincontent = document.createElement('div');
+              var strong = document.createElement('strong');
+
+
+
+              //check is this first time load or not of the map
+              if(person!=""){
+                //if we have search criteria, use it
+                  if(name==person || disease==person){  
+                          strong.textContent = name
+                          infowincontent.appendChild(strong);
+                          infowincontent.appendChild(document.createElement('br'));
+                          //disease name 
+                          var text = document.createElement('text');
+                          text.textContent = disease
+                          infowincontent.appendChild(text);
+                          //go to next line
+                          infowincontent.appendChild(document.createElement('br'));
+                          //view the address
+                          var text1 = document.createElement('text');
+                          text1.textContent = address
+                          infowincontent.appendChild(text1);
+                  
+                        
+                          var icon = customLabel[name] || {};
+                          var marker = new google.maps.Marker({
+                            map: map,
+                            position: point,
+                            label: icon.label
+                          });
+                          marker.addListener('click', function() {
+                            infoWindow.setContent(infowincontent);
+                            infoWindow.open(map, marker);
+                          });
+                 }
+
+              }else{
+                //title of the info window
+                strong.textContent = name
+                infowincontent.appendChild(strong);
+                infowincontent.appendChild(document.createElement('br'));
+
+
+                //disease name 
+                var text = document.createElement('text');
+                text.textContent = disease
+                infowincontent.appendChild(text);
+                //go to next line
+                infowincontent.appendChild(document.createElement('br'));
+                //view the address
+                var text1 = document.createElement('text');
+                text1.textContent = address
+                infowincontent.appendChild(text1);
+
+
+                var icon = customLabel[type] || {};
+                var marker = new google.maps.Marker({
+                  map: map,
+                  position: point,
+                  label: icon.label
+                });
+                marker.addListener('click', function() {
+                  infoWindow.setContent(infowincontent);
+                  infoWindow.open(map, marker);
+                });
+
+              }            
+              
+            });
+          });
+        }
+
+
+
+      function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ?
+            new ActiveXObject('Microsoft.XMLHTTP') :
+            new XMLHttpRequest;
+
+        request.onreadystatechange = function() {
+          if (request.readyState == 4) {
+            request.onreadystatechange = doNothing;
+            callback(request, request.status);
+          }
+        };
+
+        request.open('GET', url, true);
+        request.send(null);
+      }
+
+      function doNothing() {}
+
+      
+      
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3lXSZeHNVy7eeOWI0nCKSC4jURRoN_rk&callback=initMap">
+    </script>
+  </body>
+</html>
